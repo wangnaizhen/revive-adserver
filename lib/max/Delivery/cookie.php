@@ -349,7 +349,7 @@ function MAX_cookieClientCookieFlush()
     if (!empty($GLOBALS['_MAX']['COOKIE']['CACHE'])) {
         // Set cookies
         reset($GLOBALS['_MAX']['COOKIE']['CACHE']);
-        while (list($name,$v) = each ($GLOBALS['_MAX']['COOKIE']['CACHE'])) {
+        foreach ($GLOBALS['_MAX']['COOKIE']['CACHE'] as $name => $v) {
             list($value, $expire) = $v;
             // Treat the viewerId cookie differently, (always set in client)
             if ($name === $conf['var']['viewerId']) {

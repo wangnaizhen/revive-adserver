@@ -168,7 +168,7 @@ class OA_Maintenance_Priority_AdServer_Task_AllocateZoneImpressions extends OA_M
     {
         $aAdvertIds = array();
         reset($aAds);
-        while (list($key, $oAd) = each($aAds)) {
+        foreach ($aAds as $key => $oAd) {
             $aAdvertIds[] = $oAd->id;
         }
         if (!empty($aAdvertIds)) {
@@ -200,7 +200,7 @@ class OA_Maintenance_Priority_AdServer_Task_AllocateZoneImpressions extends OA_M
                 if (is_array($oCampaign->aAds) && !empty($oCampaign->aAds)) {
                     $aAdvertIds = array();
                     reset($oCampaign->aAds);
-                    while (list($key, $oAd) = each($oCampaign->aAds)) {
+                    foreach ($oCampaign->aAds as $key => $oAd) {
                         $aAdvertIds[] = $oAd->id;
                     }
                     $aResult = $this->oDal->getAdZoneAssociationsByAds($aAdvertIds);

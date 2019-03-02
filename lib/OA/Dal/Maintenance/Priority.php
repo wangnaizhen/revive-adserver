@@ -1642,7 +1642,7 @@ class OA_Dal_Maintenance_Priority extends OA_Dal_Maintenance_Common
                 OA::debug('    - Calculating which existing ad/zone pair priorities need to be zeroed', PEAR_LOG_DEBUG);
                 $aSetToZero = array();
                 reset($aRows);
-                while (list(,$aRow) = each($aRows)) {
+                foreach ($aRows as $k => $aRow) {
                     if (is_null($aData[$aRow['zone_id']][$aRow['ad_id']])) {
                         // There is no new priority value for this existing ad/zone pair
                         $aSetToZero[$aRow['zone_id']][$aRow['ad_id']] = true;
@@ -1653,7 +1653,7 @@ class OA_Dal_Maintenance_Priority extends OA_Dal_Maintenance_Common
                 reset($aSetToZero);
                 while (list($zoneId, $aAds) = each($aSetToZero)) {
                     reset($aAds);
-                    while (list($adId,) = each($aAds)) {
+                    foreach ($aAds as $adId => $notUsed) {
                         OA::debug("    - Zeroing ad ID $adId, zone ID $zoneID pair priority.", PEAR_LOG_DEBUG);
                         $table = $this->_getTablename('ad_zone_assoc');
                         $query = "
@@ -1739,7 +1739,7 @@ class OA_Dal_Maintenance_Priority extends OA_Dal_Maintenance_Common
                 OA::debug('    - Updating required existing ad/zone pair priorities', PEAR_LOG_DEBUG);
                 if (is_array($aData) && (count($aData) > 0)) {
                     reset($aData);
-                    while (list(,$aZoneData)  = each($aData)) {
+                    foreach ($aData as $k => $aZoneData) {
                         if (is_array($aZoneData['ads']) && (count($aZoneData['ads']) > 0)) {
                             foreach ($aZoneData['ads'] as $aAdZonePriority) {
                                 $table = $this->_getTablename('ad_zone_assoc');

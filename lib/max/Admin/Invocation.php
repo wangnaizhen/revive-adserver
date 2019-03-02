@@ -355,7 +355,7 @@ class MAX_Admin_Invocation {
         // Put extra hidden fields
         if (is_array($extra)) {
             reset($extra);
-            while (list($k, $v) = each($extra)) {
+            foreach ($extra as $k => $v) {
                 $buffer .= "<input type='hidden' value='".htmlspecialchars($v,ENT_QUOTES)."' name='$k'>";
             }
         }

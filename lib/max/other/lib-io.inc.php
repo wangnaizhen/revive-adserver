@@ -38,12 +38,12 @@ function phpAds_registerGlobalUnslashed()
 {
     $args = func_get_args();
     $request = array();
-    while (list(,$key) = each($args)) {
-        if (isset($_GET[$key])) {
-            $value = $_GET[$key];
+    foreach ($args as $index => $keyName) {
+        if (isset($_GET[$keyName])) {
+            $value = $_GET[$keyName];
         }
-        if (isset($_POST[$key])) {
-            $value = $_POST[$key];
+        if (isset($_POST[$keyName])) {
+            $value = $_POST[$keyName];
         }
         if (isset($value)) {
             if (ini_get('magic_quotes_gpc')) {
@@ -53,7 +53,7 @@ function phpAds_registerGlobalUnslashed()
         else {
             $value = null;
         }
-        $GLOBALS[$key] = $request[$key] = $value;
+        $GLOBALS[$keyName] = $request[$keyName] = $value;
         unset($value);
     }
     return $request;

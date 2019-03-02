@@ -517,7 +517,7 @@ function MAX_commonSlashArray($a)
 {
     if (is_array($a)) {
         reset($a);
-        while (list($k,$v) = each($a)) {
+        foreach ($a as $k => $v) {
             $a[$k] = MAX_commonSlashArray($v);
         }
         reset ($a);

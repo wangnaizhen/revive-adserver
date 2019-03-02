@@ -238,7 +238,7 @@ function MAX_commonAddslashesRecursive($a)
 {
     if (is_array($a)) {
         reset($a);
-        while (list($k,$v) = each($a)) {
+        foreach ($a as $k => $v) {
             $a[$k] = MAX_commonAddslashesRecursive($v);
         }
         reset ($a);

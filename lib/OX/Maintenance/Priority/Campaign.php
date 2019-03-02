@@ -282,7 +282,7 @@ class OX_Maintenance_Priority_Campaign
         $aAds = $this->oMaxDalEntities->getAdsByCampaignId($this->id);
         if (is_array($aAds) && (count($aAds) > 0)) {
             reset($aAds);
-            while (list($adId, $aAdDetails) = each($aAds)) {
+            foreach ($aAds as $adId => $aAdDetails) {
                 $this->aAds[$adId] = new OA_Maintenance_Priority_Ad($aAdDetails);
             }
         }

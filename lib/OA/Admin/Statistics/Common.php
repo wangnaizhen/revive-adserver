@@ -1299,9 +1299,9 @@ class OA_Admin_Statistics_Common extends OA_Admin_Statistics_Flexy
     {
         $showTotals = false;
         reset($aRows);
-        while (list(, $aRow) = each($aRows)) {
+        foreach ($aRows as $outerKey => $aRow) {
             reset($aRow);
-            while (list($key, $value) = each($aRow)) {
+            foreach ($aRow as $key => $value) {
                 // Ensure that we only try to sum for those columns
                 // that are set in the initial empty row
                 if (isset($this->aColumns[$key])) {

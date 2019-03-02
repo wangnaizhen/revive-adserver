@@ -263,7 +263,7 @@ class OA_DB
             }
             if (!empty($aNativetypes)) {
                 reset($aNativetypes);
-                while (list(, $value) = each($aNativetypes)) {
+                foreach ($aNativetypes as $key => $value) {
                     $aOptions['nativetype_map_callback'] =
                         array_merge(
                             (array)$aOptions['nativetype_map_callback'],

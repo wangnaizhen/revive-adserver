@@ -190,7 +190,7 @@ function MAX_adSelect($what, $campaignid = '', $target = '', $source = '', $with
 	                $collected = array();
 
 	                reset($separate);
-	                while (list(,$v) = each($separate)) {
+	                foreach ($separate as $k => $v) {
 	                    $expanded .= ($expanded != '' ? ',+' : '') . $v;
 	                    $collected[] = $expanded . ($append != '' ? ',+'.$append : '');
 	                }
