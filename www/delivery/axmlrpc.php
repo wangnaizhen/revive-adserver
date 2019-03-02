@@ -462,7 +462,7 @@ $domain = !empty($conf['cookie']['domain']) ? $conf['cookie']['domain'] : null;
 MAX_cookieSendP3PHeaders();
 if (!empty($GLOBALS['_MAX']['COOKIE']['CACHE'])) {
 reset($GLOBALS['_MAX']['COOKIE']['CACHE']);
-while (list($name,$v) = each ($GLOBALS['_MAX']['COOKIE']['CACHE'])) {
+foreach ($GLOBALS['_MAX']['COOKIE']['CACHE'] as $name => $v) {
 list($value, $expire) = $v;
 if ($name === $conf['var']['viewerId']) {
 MAX_cookieClientCookieSet($name, $value, $expire, '/', !empty($conf['cookie']['viewerIdDomain']) ? $conf['cookie']['viewerIdDomain'] : $domain);
@@ -2496,7 +2496,7 @@ function MAX_commonAddslashesRecursive($a)
 {
 if (is_array($a)) {
 reset($a);
-while (list($k,$v) = each($a)) {
+foreach ($a as $k => $v) {
 $a[$k] = MAX_commonAddslashesRecursive($v);
 }
 reset ($a);
@@ -3843,7 +3843,7 @@ $separate = explode ('/', $what);
 $expanded = '';
 $collected = array();
 reset($separate);
-while (list(,$v) = each($separate)) {
+foreach ($separate as $k => $v) {
 $expanded .= ($expanded != '' ? ',+' : '') . $v;
 $collected[] = $expanded . ($append != '' ? ',+'.$append : '');
 }
