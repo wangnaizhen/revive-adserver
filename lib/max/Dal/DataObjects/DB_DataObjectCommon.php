@@ -864,28 +864,32 @@ class DB_DataObjectCommon extends DB_DataObject
             DB_DataObject::_loadConfig();
         }
 
-        $_DB_DATAOBJECT['INI'][$this->_database]    = $this->_mergeIniFiles($_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"]);
-        if (empty($_DB_DATAOBJECT['INI'][$this->_database]))
-        {
-            return false;
-        }
-        $_DB_DATAOBJECT['LINKS'][$this->_database]  = $this->_mergeIniFiles($_DB_DATAOBJECT['CONFIG']["links_{$this->_database}"]);
-        if (empty($_DB_DATAOBJECT['LINKS'][$this->_database]))
-        {
+        $newDatabase = !isset($_DB_DATAOBJECT['INI'][$this->_database]);
+
+        $_DB_DATAOBJECT['INI'][$this->_database] = $_DB_DATAOBJECT['INI'][$this->_database] ??
+            $this->_mergeIniFiles($_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"]);
+
+        if (empty($_DB_DATAOBJECT['INI'][$this->_database])) {
             return false;
         }
 
-        $configDatabase = &$_DB_DATAOBJECT['INI'][$this->_database];
+        $_DB_DATAOBJECT['LINKS'][$this->_database] = $_DB_DATAOBJECT['INI'][$this->_database] ??
+            $this->_mergeIniFiles($_DB_DATAOBJECT['CONFIG']["links_{$this->_database}"]);
+
+        if (empty($_DB_DATAOBJECT['LINKS'][$this->_database])) {
+            return false;
+        }
 
         // databaseStructure() is cached in memory so we have to add prefix to all definitions on first run
-        if (!empty($this->_prefix))
+        if (!empty($this->_prefix) && $newDatabase)
         {
-            $oldConfig = $configDatabase;
-            foreach ($oldConfig as $tableName => $config)
-            {
+            $configDatabase = &$_DB_DATAOBJECT['INI'][$this->_database];
+
+            foreach ($configDatabase as $tableName => $config) {
                 $configDatabase[$this->_prefix.$tableName] = $configDatabase[$tableName];
             }
         }
+
         return true;
     }
 
