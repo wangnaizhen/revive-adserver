@@ -4293,13 +4293,21 @@ return $aContext;
 }
 function _adSelectBuildContext($aBanner, $context = array()) {
 if (!empty($aBanner['zone_companion'])) {
+$data = [];
+foreach ($context as $c){
+if(!in_array(key($c), $data[current($c)])){
+$data[current($c)][] = key($c);
+}
+}
 foreach ($aBanner['zone_companion'] AS $companionCampaign) {
 $value = 'companionid:'.$companionCampaign;
 if ($aBanner['placement_id'] == $companionCampaign) {
 $context[] = array('==' => $value);
+if(!in_array('==', $data[$value])){
+$data[$value][] = '==';
+}
 } else {
-$key = array_search(array('==', $value), $context);
-if ($key === false) {
+if (empty($data[$value]) || !in_array('==', $data[$value])) {
 $context[] = array('!=' => $value);
 }
 }
