@@ -107,7 +107,7 @@ class Image_Graph_Plot_Band extends Image_Graph_Plot
 
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             $upperBand = array();
             $lowerBand = array();

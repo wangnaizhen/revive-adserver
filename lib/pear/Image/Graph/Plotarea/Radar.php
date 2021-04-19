@@ -188,7 +188,7 @@ class Image_Graph_Plotarea_Radar extends Image_Graph_Plotarea
         if (is_array($this->_elements)) {
             $keys = array_keys($this->_elements);
             foreach ($keys as $key) {
-                $element =& $this->_elements[$key];
+                $element = $this->_elements[$key];
                 if (is_a($element, 'Image_Graph_Plot')) {
                     $this->_setExtrema($element);
                 }

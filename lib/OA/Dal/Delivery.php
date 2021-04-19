@@ -813,7 +813,7 @@ function OA_Dal_Delivery_getLinkedAds($search, $campaignid = '', $lastpart = tru
         }
     }
     // eCPM remnant campaigns
-    if (is_array($aRows['eAds'])) {
+    if (isset($aRows['eAds']) && is_array($aRows['eAds'])) {
         $totals['eAds'] = _getTotalPrioritiesByCP($aRows['eAds']);
     }
     // If there are remnant campaign creatives, sort by priority

@@ -92,7 +92,7 @@ class Image_Graph_Plot_Impulse extends Image_Graph_Plot
 
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             while ($point = $dataset->_next()) {
                 $x0 = $this->_pointX($point);

@@ -267,7 +267,7 @@ class Image_Canvas_WithMap extends Image_Canvas
     {
         $result = null;
         if (isset($this->_imageMap)) {
-            $result =& $this->_imageMap;
+            $result = $this->_imageMap;
         }
         return $result;
     }

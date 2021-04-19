@@ -20,7 +20,6 @@ require_once MAX_PATH . '/lib/OX/Admin/UI/Install/SystemCheckModelBuilder.php';
 require_once MAX_PATH . '/lib/OX/Admin/UI/Install/InstallStatus.php';
 require_once MAX_PATH . '/lib/OX/Admin/UI/SessionStorage.php';
 require_once MAX_PATH . '/lib/OX/Admin/Redirect.php';
-require_once MAX_PATH . '/lib/OX/Upgrade/InstallConfig.php';
 require_once MAX_PATH . '/lib/OX/Upgrade/InstallPlugin/Controller.php';
 require_once MAX_PATH . '/lib/OX/Upgrade/PostUpgradeTask/Controller.php';
 
@@ -206,8 +205,6 @@ class OX_Admin_UI_Install_InstallController
                 array(VERSION));
         }
         $this->setModelProperty('pageHeader', new OA_Admin_UI_Model_PageHeaderModel($pageTitle));
-
-        $aConfig = OX_Upgrade_InstallConfig::getConfig();
     }
 
 

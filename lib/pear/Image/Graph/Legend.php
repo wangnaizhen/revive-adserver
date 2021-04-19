@@ -94,7 +94,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
         $count = 0;
         $keys = array_keys($this->_plotareas);
         foreach($keys as $key) {
-            $plotarea =& $this->_plotareas[$key];
+            $plotarea = $this->_plotareas[$key];
             if (is_a($plotarea, 'Image_Graph_Plotarea')) {
                 $keys2 = array_keys($plotarea->_elements);
                 foreach ($keys2 as $key) {
@@ -154,7 +154,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
             $param0 = $param;
             $keys = array_keys($this->_plotareas);
             foreach($keys as $key) {
-                $plotarea =& $this->_plotareas[$key];
+                $plotarea = $this->_plotareas[$key];
                 $keys2 = array_keys($plotarea->_elements);
                 foreach($keys2 as $key) {
                     $element =& $plotarea->_elements[$key];
@@ -186,7 +186,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
             $param['align'] = IMAGE_GRAPH_ALIGN_VERTICAL;
             $keys = array_keys($this->_plotareas);
             foreach($keys as $key) {
-                $plotarea =& $this->_plotareas[$key];
+                $plotarea = $this->_plotareas[$key];
                 $keys2 = array_keys($plotarea->_elements);
                 foreach($keys2 as $key) {
                     $element =& $plotarea->_elements[$key];
@@ -324,7 +324,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
 
             $keys = array_keys($this->_plotareas);
             foreach($keys as $key) {
-                $plotarea =& $this->_plotareas[$key];
+                $plotarea = $this->_plotareas[$key];
                 $keys2 = array_keys($plotarea->_elements);
                 foreach($keys2 as $key) {
                     $element =& $plotarea->_elements[$key];
@@ -340,7 +340,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
             $param0['simulate'] = true;
             $keys = array_keys($this->_plotareas);
             foreach($keys as $key) {
-                $plotarea =& $this->_plotareas[$key];
+                $plotarea = $this->_plotareas[$key];
                 $keys2 = array_keys($plotarea->_elements);
                 foreach($keys2 as $key) {
                     $element =& $plotarea->_elements[$key];
@@ -363,7 +363,7 @@ class Image_Graph_Legend extends Image_Graph_Layout
 
             $keys = array_keys($this->_plotareas);
             foreach($keys as $key) {
-                $plotarea =& $this->_plotareas[$key];
+                $plotarea = $this->_plotareas[$key];
                 $keys2 = array_keys($plotarea->_elements);
                 foreach($keys2 as $key) {
                     $element =& $plotarea->_elements[$key];

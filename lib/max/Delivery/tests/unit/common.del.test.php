@@ -33,7 +33,7 @@ class Test_DeliveryCommon extends UnitTestCase
 
     function setUp()
     {
-        $this->original_server_port = $_SERVER['SERVER_PORT'];
+        $this->original_server_port = $_SERVER['SERVER_PORT'] ?? null;
         $GLOBALS['_MAX']['CONF']['webpath']['delivery']     = 'www.maxstore.net/www/delivery';
         $GLOBALS['_MAX']['CONF']['webpath']['deliverySSL']  = 'secure.maxstore.net/www/delivery';
 
@@ -42,7 +42,9 @@ class Test_DeliveryCommon extends UnitTestCase
 
     function tearDown()
     {
-        $_SERVER['SERVER_PORT'] = $this->original_server_port;
+        if ($this->original_server_port) {
+            $_SERVER['SERVER_PORT'] = $this->original_server_port;
+        }
     }
 
     function test_MAX_commonGetDeliveryUrl_Uses_HTTP_Scheme_For_Nonsecure_URLs()
@@ -252,11 +254,11 @@ class Test_DeliveryCommon extends UnitTestCase
         $this->assertEqual($source, '{obfs:}', '$source'); // only if conf->obfuscate
         $this->assertEqual($target, '', '$target');
         $this->assertEqual($withText, '', '$withText');
-        $this->assertEqual($withtext, '', '$withtext');
+        $this->assertEqual($withtext, 0, '$withtext');
         $this->assertEqual($withtext, $withText, '$withtext/$withText');
         $this->assertEqual($ct0, '', '$ct0');
         $this->assertEqual($what, '', '$what');
-        $this->assertTrue(in_array($loc, array(stripslashes($loc),$_SERVER['HTTP_REFERER'],'')));
+        $this->assertTrue(in_array($loc, array(stripslashes($loc), $_SERVER['HTTP_REFERER'] ?? '','')));
         $this->assertEqual($referer, null, '$referer');
         $this->assertEqual($zoneid, null, '$zoneid');
         $this->assertEqual($campaignid, null, '$campaignid');

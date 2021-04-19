@@ -231,8 +231,8 @@ class Image_Color
     */
     function changeLightness ( $degree=10 )
     {
-        $color2 =& $this->color2;
-        $color1 =& $this->color1;
+        $color2 = $this->color2;
+        $color1 = $this->color1;
 
         for ( $x = 0; $x < 3; $x++ )
         {

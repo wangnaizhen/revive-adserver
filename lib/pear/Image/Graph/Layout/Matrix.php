@@ -88,7 +88,7 @@ class Image_Graph_Layout_Matrix extends Image_Graph_Layout
             for ($i = 0; $i < $this->_rows; $i++) {
                 for ($j = 0; $j < $this->_cols; $j++) {
                     if ($autoCreate) {
-                        $this->_matrix[$i][$j] =& $this->addNew('plotarea');
+                        $this->_matrix[$i][$j] = $this->addNew('plotarea');
                         $this->_pushEdges($i, $j);
                     } else {
                         $this->_matrix[$i][$j] = false;
@@ -166,7 +166,7 @@ class Image_Graph_Layout_Matrix extends Image_Graph_Layout
     {
         for ($i = 0; $i < $this->_rows; $i++) {
             for ($j = 0; $j < $this->_cols; $j++) {
-                $element =& $this->getEntry($i, $j);
+                $element = $this->getEntry($i, $j);
                 $this->add($element);
             }
         }
@@ -184,7 +184,7 @@ class Image_Graph_Layout_Matrix extends Image_Graph_Layout
         $result = true;
         for ($i = 0; $i < $this->_rows; $i++) {
             for ($j = 0; $j < $this->_cols; $j++) {
-                $element =& $this->getEntry($i, $j);
+                $element = $this->getEntry($i, $j);
                 if ($element) {
                     if (!$element->_done()) {
                         $result = false;

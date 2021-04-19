@@ -112,7 +112,7 @@ class Image_Graph_Line_Array extends Image_Graph_Common
                 reset($this->_lineStyles);
             }
         }
-        $lineStyle =& $this->_lineStyles[$ID];
+        $lineStyle = $this->_lineStyles[$ID];
 
         if (is_object($lineStyle)) {
             return $lineStyle->_getLineStyle($ID);

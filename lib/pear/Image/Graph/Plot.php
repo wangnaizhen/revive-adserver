@@ -438,7 +438,7 @@ class Image_Graph_Plot extends Image_Graph_Plotarea_Element
             $number = 0;
             $keys = array_keys($this->_dataset);
             foreach ($keys as $key) {
-                $dataset =& $this->_dataset[$key];
+                $dataset = $this->_dataset[$key];
                 $totals['MINIMUM_X'] = $dataset->minimumX();
                 $totals['MAXIMUM_X'] = $dataset->maximumX();
                 $totals['MINIMUM_Y'] = $dataset->minimumY();
@@ -561,7 +561,7 @@ class Image_Graph_Plot extends Image_Graph_Plotarea_Element
                     if ($min === false) {
                         $min = 0;
                     }
-                    $dataset =& $this->_dataset[$key];
+                    $dataset = $this->_dataset[$key];
                     $dataset->_reset();
                     while ($point = $dataset->_next()) {
                         if ($point['Y'] < 0) {
@@ -601,7 +601,7 @@ class Image_Graph_Plot extends Image_Graph_Plotarea_Element
         if (is_array($this->_dataset)) {
             $keys = array_keys($this->_dataset);
             foreach ($keys as $key) {
-                $dataset =& $this->_dataset[$key];
+                $dataset = $this->_dataset[$key];
 
                 if ($this->_multiType == 'normal') {
                     if (isset($maxY)) {
@@ -698,7 +698,7 @@ class Image_Graph_Plot extends Image_Graph_Plotarea_Element
 
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
 
             $dataset->_reset();
             while ($point = $dataset->_next()) {
@@ -759,7 +759,7 @@ class Image_Graph_Plot extends Image_Graph_Plotarea_Element
         $count = 0;
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $count++;
 
             $caption = ($dataset->_name ? $dataset->_name : $this->_title);

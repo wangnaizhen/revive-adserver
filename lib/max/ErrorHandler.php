@@ -141,7 +141,7 @@ EOF;
                 @constant($conf['debug']['emailAdminThreshold']);
             if ($conf['debug']['sendErrorEmails'] && !defined('TEST_ENVIRONMENT_RUNNING') && $this->errorType[$errNo][1] <= $emailAdminThreshold) {
                 //  get extra info
-                $oDbh =& OA_DB::singleton();
+                $oDbh = OA_DB::singleton();
                 $lastQuery = $oDbh->last_query;
                 $aExtraInfo['callingURL'] = $_SERVER['SCRIPT_NAME'];
                 $aExtraInfo['lastSQL'] = isset($oDbh->last_query) ? $oDbh->last_query : null;

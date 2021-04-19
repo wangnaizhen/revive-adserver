@@ -153,7 +153,7 @@ class Image_Canvas_GD extends Image_Canvas_WithMap
         if ((isset($param['gd'])) && (is_resource($param['gd']))) {
             $this->_canvas =& $param['gd'];
         } elseif (isset($param['filename'])) {
-            $this->_canvas =& $this->_getGD($param['filename']);
+            $this->_canvas = $this->_getGD($param['filename']);
         } else {
             if ($this->_gd2) {
                 $this->_canvas = ImageCreateTrueColor(
@@ -552,7 +552,7 @@ class Image_Canvas_GD extends Image_Canvas_WithMap
      */
     function setFillImage($filename)
     {
-        $this->_fillStyle =& $this->_getGD($filename);
+        $this->_fillStyle = $this->_getGD($filename);
     }
 
     /**

@@ -120,7 +120,7 @@ class Image_Graph_Fill_Array extends Image_Graph_Fill
                 reset($this->_fillStyles);
             }
         }
-        $fillStyle =& $this->_fillStyles[$ID];
+        $fillStyle = $this->_fillStyles[$ID];
 
         if (is_object($fillStyle)) {
             return $fillStyle->_getFillStyle($ID);

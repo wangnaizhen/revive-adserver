@@ -98,8 +98,8 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
 
     /**
      * how many small ticks a  big tick appears
-     * the small ticks appear every 6°
-     * so with the default value of 5, every 30° there is a value and a big tick
+     * the small ticks appear every 6ï¿½
+     * so with the default value of 5, every 30ï¿½ there is a value and a big tick
      * 180 min a half circle
      * @access private
      * @var int
@@ -176,7 +176,7 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
         
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             if (isset($min)) {
                 $min = min($dataset->minimumY(), $min);
             }
@@ -376,7 +376,7 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
                         )
                     );
                     
-        //step for every 6°
+        //step for every 6ï¿½
         $step = (int) ($this->_totalY / $this->_deg_width * 6);
         $value = $this->_value_min;
         $i = 0;
@@ -441,7 +441,7 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
     {
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             $this->setLineStyle($this->_arrowLineStyle);
             $this->setFillStyle($this->_arrowFillStyle);
@@ -513,7 +513,7 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
 
             /* $keys = array_keys($this->_dataset);
             foreach ($keys as $key) { */
-                $dataset =& $this->_dataset[0];
+                $dataset = $this->_dataset[0];
 
                 $totals['RADIUS0'] = false;
                 $totals['ODO_RADIUS'] = 1.1 * $this->_radius * $this->_arrowLength / 100;
@@ -653,7 +653,7 @@ class Image_Graph_Plot_Odo extends Image_Graph_Plot
             $count = 0;
             $keys = array_keys($this->_dataset);
             foreach ($keys as $key) {
-                $dataset =& $this->_dataset[$key];
+                $dataset = $this->_dataset[$key];
                 $count++;
 
                 $dataset->_reset();

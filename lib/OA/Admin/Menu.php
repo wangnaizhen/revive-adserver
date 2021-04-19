@@ -33,12 +33,19 @@ class OA_Admin_Menu
      */
     var $aCheckerIncludePaths;
 
+    function __construct()
+    {
+        $this->ROOT_SECTION_ID = 'root';
+        $this->rootSection = new OA_Admin_Menu_Section($this->ROOT_SECTION_ID, 'root', '', '');
+        $this->aAllSections = array();
+    }
+
     /**
      * Returns the instance of menu. Subsequent calls return the same object.
      *
      * @return OA_Admin_Menu
      */
-    function &singleton()
+    public static function singleton()
     {
         $accountType = OA_Permission::getAccountType();
         if (isset($GLOBALS['_MAX']['MENU_OBJECT'][$accountType])) {
@@ -66,15 +73,7 @@ class OA_Admin_Menu
         return $oMenu;
     }
 
-    function __construct()
-    {
-        $this->ROOT_SECTION_ID = 'root';
-        $this->rootSection = new OA_Admin_Menu_Section($this->ROOT_SECTION_ID, 'root', '', '');
-        $this->aAllSections = array();
-    }
-
-
-    function _loadFromCache($accountType)
+    public static function _loadFromCache($accountType)
     {
         $oCache = new OA_Cache('Menu', $accountType);
         $oCache->setFileNameProtection(false);
@@ -93,7 +92,7 @@ class OA_Admin_Menu
     }
 
 
-    function _saveToCache($accountType)
+    public function _saveToCache($accountType)
     {
         $oCache = new OA_Cache('Menu', $accountType);
         $oCache->setFileNameProtection(false);
@@ -101,7 +100,7 @@ class OA_Admin_Menu
     }
 
 
-    function _clearCache($accountType)
+    public static function _clearCache($accountType)
     {
         $oCache = new OA_Cache('Menu', $accountType);
         $oCache->setFileNameProtection(false);
@@ -123,7 +122,7 @@ class OA_Admin_Menu
      *
      * @return OA_Admin_Menu_Section
      */
-    function &get($sectionId, $checkAccess = true)
+    function get($sectionId, $checkAccess = true)
     {
         //if (!array_key_exists($sectionId, $this->aAllSections)) {
         if (!array_key_exists($sectionId, $this->aAllSections)) {
@@ -164,7 +163,7 @@ class OA_Admin_Menu
      */
     function getRootSections($checkAccess = true)
     {
-        $aSections = &$this->rootSection->getSections();
+        $aSections = $this->rootSection->getSections();
 
         if ($checkAccess) {
             $aSections = array_values(array_filter($aSections, array(new OA_Admin_SectionCheckerFilter(), 'accept')));
@@ -181,10 +180,11 @@ class OA_Admin_Menu
      * @param boolean $checkAccess indicates whether menu should perform checks before letting user access section
      * @return boolean
      */
-    function isRootSection(&$oSection, $checkAccess = true)
+    function isRootSection($oSection, $checkAccess = true)
     {
         $rootSections = $this->getRootSections($checkAccess);
-        return object_in_array($oSection, $rootSections, true);
+
+        return in_array($oSection, $rootSections, true);
     }
 
 
@@ -497,18 +497,6 @@ class OA_Admin_Menu
     {
         $this->aCheckerIncludePaths[$checkerClassName] = $path;
     }
-}
-/**
- * Checks if the needle object exists in the haystack array
- *
- * @param object $needle
- * @param array of objects $haystack
- * @param boolean $strict (defaults to false)
- */
-function object_in_array(&$needle  , &$haystack, $strict = false)
-{
-    return in_array($needle, $haystack, $strict);
-
 }
 
 ?>

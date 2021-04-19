@@ -235,7 +235,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
             $this->destructor_registered = true;
             register_shutdown_function('MDB2_closeOpenTransactions');
         }
-        $result =& $this->_doQuery('BEGIN', true);
+        $result = $this->_doQuery('BEGIN', true);
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -269,7 +269,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
             return $this->_doQuery($query, true);
         }
 
-        $result =& $this->_doQuery('COMMIT', true);
+        $result = $this->_doQuery('COMMIT', true);
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -304,7 +304,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         }
 
         $query = 'ROLLBACK';
-        $result =& $this->_doQuery($query, true);
+        $result = $this->_doQuery($query, true);
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -328,7 +328,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
      * @access  public
      * @since   2.1.1
      */
-    function setTransactionIsolation($isolation)
+    function setTransactionIsolation($isolation, $options = array())
     {
         $this->debug('Setting transaction isolation level', __FUNCTION__, array('is_manip' => true));
         switch ($isolation) {
@@ -573,13 +573,13 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
      * @return mixed MDB2_OK on success, a MDB2 error on failure
      * @access public
      */
-    function &standaloneQuery($query, $types = null, $is_manip = false)
+    function standaloneQuery($query, $types = null, $is_manip = false)
     {
         $connection = $this->_doConnect('postgres', false);
         if (PEAR::isError($connection)) {
             $connection = $this->_doConnect('template1', false);
             if (PEAR::isError($connection)) {
-                $err =& $this->customRaiseError(MDB2_ERROR_CONNECT_FAILED, null, null,
+                $err = $this->customRaiseError(MDB2_ERROR_CONNECT_FAILED, null, null,
                     'Cannot connect to postgres nor template1 databases', __FUNCTION__);
                 return $err;
             }
@@ -590,7 +590,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         $this->offset = $this->limit = 0;
         $query = $this->_modifyQuery($query, $is_manip, $limit, $offset);
 
-        $result =& $this->_doQuery($query, $is_manip, $connection, false);
+        $result = $this->_doQuery($query, $is_manip, $connection, false);
         @pg_close($connection);
         if (PEAR::isError($result)) {
             return $result;
@@ -600,7 +600,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
             $affected_rows =  $this->_affectedRows($connection, $result);
             return $affected_rows;
         }
-        $result =& $this->_wrapResult($result, $types, true, false, $limit, $offset);
+        $result = $this->_wrapResult($result, $types, true, false, $limit, $offset);
         return $result;
     }
 
@@ -641,12 +641,12 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         $function = $this->options['multi_query'] ? 'pg_send_query' : 'pg_query';
         $result = @$function($connection, $query);
         if (!$result) {
-            $err =& $this->customRaiseError(null, null, null,
+            $err = $this->customRaiseError(null, null, null,
                 'Could not execute statement', __FUNCTION__);
             return $err;
         } elseif ($this->options['multi_query']) {
             if (!($result = @pg_get_result($connection))) {
-                $err =& $this->customRaiseError(null, null, null,
+                $err = $this->customRaiseError(null, null, null,
                         'Could not get the first result from a multi query', __FUNCTION__);
                 return $err;
             }
@@ -815,7 +815,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
     function &prepare($query, $types = null, $result_types = null, $lobs = array())
     {
         if ($this->options['emulate_prepared']) {
-            $obj =& parent::prepare($query, $types, $result_types, $lobs);
+            $obj = parent::prepare($query, $types, $result_types, $lobs);
             return $obj;
         }
         $is_manip = ($result_types === MDB2_PREPARE_MANIP);
@@ -881,7 +881,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
                 } else {
                     $name = preg_replace('/^.{'.($position+1).'}([a-z0-9_]+).*$/si', '\\1', $query);
                     if ($name === '') {
-                        $err =& $this->customRaiseError(MDB2_ERROR_SYNTAX, null, null,
+                        $err = $this->customRaiseError(MDB2_ERROR_SYNTAX, null, null,
                             'named parameter with an empty name', __FUNCTION__);
                         return $err;
                     }
@@ -925,7 +925,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         if ($pgtypes === false) {
             $result = @pg_prepare($connection, $statement_name, $query);
             if (!$result) {
-                $err =& $this->customRaiseError(null, null, null,
+                $err = $this->customRaiseError(null, null, null,
                     'Unable to create prepared statement handle', __FUNCTION__);
                 return $err;
             }
@@ -935,7 +935,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
                 $types_string = ' ('.implode(', ', $pgtypes).') ';
             }
             $query = 'PREPARE '.$statement_name.$types_string.' AS '.$query;
-            $statement =& $this->_doQuery($query, true, $connection);
+            $statement = $this->_doQuery($query, true, $connection);
             if (PEAR::isError($statement)) {
                 return $statement;
             }
@@ -1048,7 +1048,7 @@ class MDB2_Result_pgsql extends MDB2_Result_Common
      * @return int data array on success, a MDB2 error on failure
      * @access public
      */
-    function &fetchRow($fetchmode = MDB2_FETCHMODE_DEFAULT, $rownum = null)
+    function fetchRow($fetchmode = MDB2_FETCHMODE_DEFAULT, $rownum = null)
     {
         if (!is_null($rownum)) {
             $seek = $this->seek($rownum);
@@ -1071,7 +1071,7 @@ class MDB2_Result_pgsql extends MDB2_Result_Common
         }
         if (!$row) {
             if ($this->result === false) {
-                $err =& $this->db->customRaiseError(MDB2_ERROR_NEED_MORE_DATA, null, null,
+                $err = $this->db->customRaiseError(MDB2_ERROR_NEED_MORE_DATA, null, null,
                     'resultset has already been freed', __FUNCTION__);
                 return $err;
             }
@@ -1309,7 +1309,7 @@ class MDB2_Statement_pgsql extends MDB2_Statement_Common
     function &_execute($result_class = true, $result_wrap_class = false)
     {
         if (is_null($this->statement)) {
-            $result =& parent::_execute($result_class, $result_wrap_class);
+            $result = parent::_execute($result_class, $result_wrap_class);
             return $result;
         }
         $this->db->last_query = $this->query;
@@ -1367,7 +1367,7 @@ class MDB2_Statement_pgsql extends MDB2_Statement_Common
         if (!$query) {
             $result = @pg_execute($connection, $this->statement, $parameters);
             if (!$result) {
-                $err =& $this->db->customRaiseError(null, null, null,
+                $err = $this->db->customRaiseError(null, null, null,
                     'Unable to execute statement', __FUNCTION__);
                 return $err;
             }
@@ -1383,7 +1383,7 @@ class MDB2_Statement_pgsql extends MDB2_Statement_Common
             return $affected_rows;
         }
 
-        $result =& $this->db->_wrapResult($result, $this->result_types,
+        $result = $this->db->_wrapResult($result, $this->result_types,
             $result_class, $result_wrap_class, $this->limit, $this->offset);
         $this->db->debug($this->query, 'execute', array('is_manip' => $this->is_manip, 'when' => 'post', 'result' => $result));
         return $result;

@@ -88,13 +88,13 @@ class HTML_QuickForm_RuleRegistry
         $type = strtolower($type);
         if ($type == 'regex') {
             // Regular expression
-            $rule =& $this->getRule('regex');
+            $rule = $this->getRule('regex');
             $rule->addData($ruleName, $data1);
             $GLOBALS['_HTML_QuickForm_registered_rules'][$ruleName] = $GLOBALS['_HTML_QuickForm_registered_rules']['regex'];
 
         } elseif ($type == 'function' || $type == 'callback') {
             // Callback function
-            $rule =& $this->getRule('callback');
+            $rule = $this->getRule('callback');
             $rule->addData($ruleName, $data1, $data2, 'function' == $type);
             $GLOBALS['_HTML_QuickForm_registered_rules'][$ruleName] = $GLOBALS['_HTML_QuickForm_registered_rules']['callback'];
 
@@ -143,7 +143,7 @@ class HTML_QuickForm_RuleRegistry
      */
     function validate($ruleName, $values, $options = null, $multiple = false)
     {
-        $rule =& $this->getRule($ruleName);
+        $rule = $this->getRule($ruleName);
 
         if (is_array($values) && !$multiple) {
             $result = 0;
@@ -171,7 +171,7 @@ class HTML_QuickForm_RuleRegistry
     function getValidationScript(&$element, $elementName, $ruleData)
     {
         $reset =  (isset($ruleData['reset'])) ? $ruleData['reset'] : false;
-        $rule  =& $this->getRule($ruleData['type']);
+        $rule  = $this->getRule($ruleData['type']);
         if (!is_array($element)) {
             list($jsValue, $jsReset) = $this->_getJsValue($element, $elementName, $reset, null);
         } else {

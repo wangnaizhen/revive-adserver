@@ -739,7 +739,7 @@ class HTTP_Request
             $this->disconnect();
         // Store the connected socket in "static" property
         } elseif (empty($sockets[$sockKey]) || empty($sockets[$sockKey]->fp)) {
-            $sockets[$sockKey] =& $this->_sock;
+            $sockets[$sockKey] = $this->_sock;
         }
 
         // Check for redirection

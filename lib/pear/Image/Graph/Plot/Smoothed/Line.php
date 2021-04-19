@@ -96,7 +96,7 @@ class Image_Graph_Plot_Smoothed_Line extends Image_Graph_Plot_Smoothed_Bezier
         $this->_clip(true);
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             $numPoints = 0;
             while ($p1 = $dataset->_next()) {

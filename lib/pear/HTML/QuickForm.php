@@ -515,7 +515,7 @@ class HTML_QuickForm extends HTML_Common
         if (!$this->elementExists('MAX_FILE_SIZE')) {
             $this->addElement('hidden', 'MAX_FILE_SIZE', $this->_maxFileSize);
         } else {
-            $el =& $this->getElement('MAX_FILE_SIZE');
+            $el = $this->getElement('MAX_FILE_SIZE');
             $el->updateAttributes(array('value' => $this->_maxFileSize));
         }
     } // end func setMaxFileSize
@@ -617,7 +617,7 @@ class HTML_QuickForm extends HTML_Common
            $elementObject->onQuickFormEvent('updateValue', null, isset($this) ? $this : null);
         } else {
             $args = func_get_args();
-            $elementObject =& $this->_loadElement('addElement', $element, array_slice($args, 1));
+            $elementObject = $this->_loadElement('addElement', $element, array_slice($args, 1));
             if (PEAR::isError($elementObject)) {
                 return $elementObject;
             }
@@ -691,7 +691,7 @@ class HTML_QuickForm extends HTML_Common
         for ($i = end($elKeys); $i >= $targetIdx; $i--) {
             if (isset($this->_elements[$i])) {
                 $currentName = $this->_elements[$i]->getName();
-                $this->_elements[$i + 1] =& $this->_elements[$i];
+                $this->_elements[$i + 1] = $this->_elements[$i];
                 if ($this->_elementIndex[$currentName] == $i) {
                     $this->_elementIndex[$currentName] = $i + 1;
                 } else {
@@ -741,7 +741,7 @@ class HTML_QuickForm extends HTML_Common
             $name       = 'qf_group_' . $anonGroups++;
             $appendName = false;
         }
-        $group =& $this->addElement('group', $name, $groupLabel, $elements, $separator, $appendName);
+        $group = $this->addElement('group', $name, $groupLabel, $elements, $separator, $appendName);
         return $group;
     } // end func addGroup
 
@@ -859,7 +859,7 @@ class HTML_QuickForm extends HTML_Common
 
         // This is only supposed to work for groups with appendName = false
         if (null === $value && 'group' == $this->getElementType($elementName)) {
-            $group    =& $this->getElement($elementName);
+            $group    = $this->getElement($elementName);
             $elements =& $group->getElements();
             foreach (array_keys($elements) as $key) {
                 $name = $group->getElementName($key);
@@ -1009,7 +1009,7 @@ class HTML_QuickForm extends HTML_Common
             $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$elementName' does not exist in HTML_QuickForm::removeElement()", 'HTML_QuickForm_Error', true);
             return $error;
         }
-        $el =& $this->_elements[$this->_elementIndex[$elementName]];
+        $el = $this->_elements[$this->_elementIndex[$elementName]];
         unset($this->_elements[$this->_elementIndex[$elementName]]);
         if (empty($this->_duplicateIndex[$elementName])) {
             unset($this->_elementIndex[$elementName]);
@@ -1115,7 +1115,7 @@ class HTML_QuickForm extends HTML_Common
             return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Group '$group' does not exist in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
         }
 
-        $groupObj =& $this->getElement($group);
+        $groupObj = $this->getElement($group);
         if (is_array($arg1)) {
             $required = 0;
             foreach ($arg1 as $elementIndex => $rules) {
@@ -1662,7 +1662,7 @@ class HTML_QuickForm extends HTML_Common
     {
         $renderer->startForm($this);
         foreach (array_keys($this->_elements) as $key) {
-            $element =& $this->_elements[$key];
+            $element = $this->_elements[$key];
             $elementName = $element->getName();
             $required    = ($this->isElementRequired($elementName) && !$element->isFrozen());
             $error       = $this->getElementError($elementName);
@@ -1708,7 +1708,7 @@ class HTML_QuickForm extends HTML_Common
         if (!is_null($in_data)) {
             $this->addElement('html', $in_data);
         }
-        $renderer =& $this->defaultRenderer();
+        $renderer = $this->defaultRenderer();
         $this->accept($renderer);
         return $renderer->toHtml();
     } // end func toHtml
@@ -1750,7 +1750,7 @@ class HTML_QuickForm extends HTML_Common
                     $rule['message'] = strtr($rule['message'], $js_escape);
 
                     if (isset($rule['group'])) {
-                        $group    =& $this->getElement($rule['group']);
+                        $group    = $this->getElement($rule['group']);
                         // No JavaScript validation for frozen elements
                         if ($group->isFrozen()) {
                             continue 2;
@@ -1764,12 +1764,12 @@ class HTML_QuickForm extends HTML_Common
                         }
                     } elseif ($dependent) {
                         $element   =  array();
-                        $element[] =& $this->getElement($elementName);
+                        $element[] = $this->getElement($elementName);
                         foreach ($rule['dependent'] as $elName) {
-                            $element[] =& $this->getElement($elName);
+                            $element[] = $this->getElement($elName);
                         }
                     } else {
-                        $element =& $this->getElement($elementName);
+                        $element = $this->getElement($elementName);
                     }
                     // No JavaScript validation for frozen elements
                     if (is_object($element) && $element->isFrozen()) {

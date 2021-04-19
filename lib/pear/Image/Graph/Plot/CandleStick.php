@@ -172,7 +172,7 @@ class Image_Graph_Plot_CandleStick extends Image_Graph_Plot
         $lastClosed = false;
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             while ($data = $dataset->_next()) {
                 if ($this->_parent->_horizontal) {

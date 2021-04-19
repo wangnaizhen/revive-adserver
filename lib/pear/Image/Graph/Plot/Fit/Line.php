@@ -86,7 +86,7 @@ class Image_Graph_Plot_Fit_Line extends Image_Graph_Plot
         $this->_clip(true);
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             $data = array();
             while ($point = $dataset->_next()) {

@@ -23,23 +23,23 @@ class OA_Admin_DaySpan
     /**
      * The current date, ie. "now".
      *
-     * @var PEAR::Date
+     * @var Date
      */
-    var $oNowDate;
+    public $oNowDate;
 
     /**
      * The start date of the span.
      *
-     * @var PEAR::Date
+     * @var Date|null
      */
-    var $oStartDate;
+    public $oStartDate;
 
     /**
      * The end date of the span.
      *
-     * @var PEAR::Date
+     * @var Date|null
      */
-    var $oEndDate;
+    public $oEndDate;
 
     /**
      * Constructor
@@ -76,7 +76,7 @@ class OA_Admin_DaySpan
     /**
      * A method to return the start day of the span.
      *
-     * @return PEAR::Date The start day of the span.
+     * @return Date The start day of the span.
      */
     function getStartDate()
     {
@@ -86,7 +86,7 @@ class OA_Admin_DaySpan
     /**
      * A method to return the end day of the span.
      *
-     * @return PEAR::Date The end day of the span.
+     * @return Date The end day of the span.
      */
     function getEndDate()
     {
@@ -188,7 +188,7 @@ class OA_Admin_DaySpan
     {
         // Ensure the span has been set correctly, otherwise return "specific"
         if (
-            is_null($this->oStartDate) || is_null($this->oEndDate) ||
+            null === $this->oStartDate || null === $this->oEndDate ||
             !is_a($this->oStartDate, 'Date') || !is_a($this->oEndDate, 'Date')
         ) {
             return 'specific';

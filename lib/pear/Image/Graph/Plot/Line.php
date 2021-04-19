@@ -108,7 +108,7 @@ class Image_Graph_Plot_Line extends Image_Graph_Plot
 
         $keys = array_keys($this->_dataset);
         foreach ($keys as $key) {
-            $dataset =& $this->_dataset[$key];
+            $dataset = $this->_dataset[$key];
             $dataset->_reset();
             $numPoints = 0;
             while ($point = $dataset->_next()) {

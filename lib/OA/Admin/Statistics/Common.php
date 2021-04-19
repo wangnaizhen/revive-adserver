@@ -491,7 +491,7 @@ class OA_Admin_Statistics_Common extends OA_Admin_Statistics_Flexy
 
         } else if ($this->outputType == 'deliveryHistory') {
 
-            $aDisplayData =& $this->aStatsData;
+            $aDisplayData = $this->aStatsData;
             if ($this->outputType == 'deliveryHistory') {
                 $weekTemplate = 'breakdown_by_week.html';
                 $dateTemplate = 'breakdown_by_date.html';

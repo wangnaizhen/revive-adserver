@@ -76,9 +76,9 @@ function MAX_limitationsIsAdForbidden($aAd)
 {
     $adId = $aAd['ad_id'];
     $campaignId = $aAd['placement_id'];
-    $showCappedNoCookie = (bool)$aAd['show_capped_no_cookie'];
-    return (_limitationsIsAdCapped($adId, $aAd['cap_ad'], $aAd['session_cap_ad'], $aAd['block_ad'], $showCappedNoCookie) ||
-	   _limitationsIsCampaignCapped($campaignId, $aAd['cap_campaign'], $aAd['session_cap_campaign'], $aAd['block_campaign'], $showCappedNoCookie));
+    $showCappedNoCookie = !empty($aAd['show_capped_no_cookie']);
+    return (_limitationsIsAdCapped($adId, $aAd['cap_ad'] ?? 0, $aAd['session_cap_ad'] ?? 0, $aAd['block_ad'] ?? 0, $showCappedNoCookie) ||
+	   _limitationsIsCampaignCapped($campaignId, $aAd['cap_campaign'] ?? 0, $aAd['session_cap_campaign'] ?? 0, $aAd['block_campaign'] ?? 0, $showCappedNoCookie));
 }
 
 /**

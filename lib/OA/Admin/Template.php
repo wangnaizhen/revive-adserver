@@ -100,9 +100,9 @@ class OA_Admin_Template extends Smarty
 
         $this->templateName = $templateName;
 
-        $this->assign('phpAds_TextDirection',  $GLOBALS['phpAds_TextDirection']);
-        $this->assign('phpAds_TextAlignLeft',  $GLOBALS['phpAds_TextAlignLeft']);
-        $this->assign('phpAds_TextAlignRight', $GLOBALS['phpAds_TextAlignRight']);
+        $this->assign('phpAds_TextDirection',  $GLOBALS['phpAds_TextDirection'] ?? 'ltr');
+        $this->assign('phpAds_TextAlignLeft',  $GLOBALS['phpAds_TextAlignLeft'] ?? 'left');
+        $this->assign('phpAds_TextAlignRight', $GLOBALS['phpAds_TextAlignRight'] ?? 'right');
         $this->assign('assetPath', OX::assetPath());
         $this->assign("adminWebPath", MAX::constructURL(MAX_URL_ADMIN, ''));
         $this->assign("oaTemplateDir", MAX_PATH.'/lib/templates/admin/');
