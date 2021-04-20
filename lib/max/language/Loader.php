@@ -49,6 +49,7 @@ class Language_Loader {
         }
 
         $PRODUCT_NAME = PRODUCT_NAME;
+        $PRODUCT_URL = PRODUCT_URL;
         $PRODUCT_DOCSURL = PRODUCT_DOCSURL;
         $phpAds_dbmsname = phpAds_dbmsname;
 

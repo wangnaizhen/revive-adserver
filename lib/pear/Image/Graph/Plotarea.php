@@ -136,10 +136,10 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
 
         include_once 'Image/Graph.php';
 
-        $this->_axisX =& Image_Graph::factory($axisX, IMAGE_GRAPH_AXIS_X);
+        $this->_axisX = Image_Graph::factory($axisX, IMAGE_GRAPH_AXIS_X);
         $this->_axisX->_setParent($this);
 
-        $this->_axisY =& Image_Graph::factory($axisY, IMAGE_GRAPH_AXIS_Y);
+        $this->_axisY = Image_Graph::factory($axisY, IMAGE_GRAPH_AXIS_Y);
         $this->_axisY->_setParent($this);
         $this->_axisY->_setMinimum(0);
 
@@ -194,7 +194,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
      * @return Image_Graph_Element The added element
      * @see Image_Graph_Common::add()
      */
-    function &add(& $element, $axis = IMAGE_GRAPH_AXIS_Y)
+    function add($element, $axis = IMAGE_GRAPH_AXIS_Y)
     {
         if ($axis == 'x') {
             $axis = IMAGE_GRAPH_AXIS_X;
@@ -208,7 +208,7 @@ class Image_Graph_Plotarea extends Image_Graph_Layout
         if (($axis == IMAGE_GRAPH_AXIS_Y_SECONDARY) &&
             ($this->_axisYSecondary == null))
         {
-            $this->_axisYSecondary =& Image_Graph::factory('axis', IMAGE_GRAPH_AXIS_Y_SECONDARY);
+            $this->_axisYSecondary = Image_Graph::factory('axis', IMAGE_GRAPH_AXIS_Y_SECONDARY);
             $this->_axisYSecondary->_setMinimum(0);
             if ($this->_horizontal) {
                 $this->_axisYSecondary->_transpose = true;

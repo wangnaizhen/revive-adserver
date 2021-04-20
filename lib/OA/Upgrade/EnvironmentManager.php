@@ -341,21 +341,17 @@ class OA_Environment_Manager
      */
     function _checkCriticalPHP()
     {
+        $this->aInfo['PHP']['warning'] = $this->aInfo['PHP']['error'] = [];
+
         // Test the PHP version
-        if (!function_exists('version_compare')) {
-            // The user's PHP version is very old - it doesn't
-            // even have the version_compare() function!
+        if (version_compare(
+            $this->aInfo['PHP']['actual']['version'],
+            $this->aInfo['PHP']['expected']['version'],
+            "<"
+        )) {
             $result = OA_ENV_ERROR_PHP_VERSION;
         } else {
-            if (version_compare(
-                $this->aInfo['PHP']['actual']['version'],
-                $this->aInfo['PHP']['expected']['version'],
-                "<"
-            )) {
-                $result = OA_ENV_ERROR_PHP_VERSION;
-            } else {
-                $result = OA_ENV_ERROR_PHP_NOERROR;
-            }
+            $result = OA_ENV_ERROR_PHP_NOERROR;
         }
 
         if ($result == OA_ENV_ERROR_PHP_VERSION) {
@@ -363,8 +359,6 @@ class OA_Environment_Manager
                 "Version {$this->aInfo['PHP']['actual']['version']} is below the minimum supported version of {$this->aInfo['PHP']['expected']['version']}." .
                 "<br />You should upgrade your PHP to at least {$this->aInfo['PHP']['expected']['version']} in order to install " . PRODUCT_NAME . ". " .
                 "Please see the <a href='" . PRODUCT_DOCSURL . "/faq'>FAQ</a> for more information.";
-        } else {
-            $this->aInfo['PHP']['error'] = false;
         }
 
         // Test the original memory_limit

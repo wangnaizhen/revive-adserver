@@ -103,7 +103,7 @@ class OA_Auth
      * @todo Fix when preferences are ready and logout url is stored into the
      * preferences table
      */
-    function logout()
+    public static function logout()
     {
         $authPlugin = OA_Auth::staticGetAuthPlugin();
         $authPlugin->logout();
@@ -116,7 +116,7 @@ class OA_Auth
      *
      * @return bool
      */
-    function suppliedCredentials()
+    public static function suppliedCredentials()
     {
         $authPlugin = OA_Auth::staticGetAuthPlugin();
         return $authPlugin->suppliedCredentials();
@@ -191,7 +191,7 @@ class OA_Auth
      *
      * @param string $sMessage Optional message
      */
-    function restart($sMessage = '')
+    public static function restart($sMessage = '')
     {
         $_COOKIE['sessionID'] = phpAds_SessionRegenerateId();
         OA_Auth::displayLogin($sMessage, $_COOKIE['sessionID']);
@@ -204,7 +204,7 @@ class OA_Auth
      *
      * @param PEAR_Error $oError
      */
-    function displayError($oError)
+    public static function displayError($oError)
     {
         OA_Auth::restart($oError->getMessage());
     }
@@ -218,7 +218,7 @@ class OA_Auth
      * @param string $sessionID
      * @param bool $inlineLogin
      */
-    function displayLogin($sMessage = '', $sessionID = 0, $inLineLogin = false)
+    public static function displayLogin($sMessage = '', $sessionID = 0, $inLineLogin = false)
     {
         $authLogin = OA_Auth::staticGetAuthPlugin();
         $authLogin->displayLogin($sMessage, $sessionID, $inLineLogin);
@@ -232,7 +232,7 @@ class OA_Auth
      * @param string $location
      * @return boolean True if a redirect is needed
      */
-    function checkRedirect($location = 'admin')
+    public static function checkRedirect($location = 'admin')
     {
         $aConf = $GLOBALS['_MAX']['CONF'];
 

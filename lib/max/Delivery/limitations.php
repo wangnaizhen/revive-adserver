@@ -116,7 +116,7 @@ function MAX_limitationsIsZoneForbidden($zoneId, $aCapping)
  *                            to a viewer in a session.
  * @return boolean True if the ad is capped, false otherwise.
  */
-function _limitationsIsAdCapped($adId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsAdCapped($adId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
 	return _limitationsIsCapped('Ad', $adId, $cap, $sessionCap, $block, $showCappedNoCookie);
 }
@@ -132,7 +132,7 @@ function _limitationsIsAdCapped($adId, $cap, $sessionCap = 0, $block, $showCappe
  *                            to a viewer in a session.
  * @return boolean True if the ad is capped, false otherwise.
  */
-function _limitationsIsCampaignCapped($campaignId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsCampaignCapped($campaignId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
 	return _limitationsIsCapped('Campaign', $campaignId, $cap, $sessionCap, $block, $showCappedNoCookie);
 }
@@ -148,7 +148,7 @@ function _limitationsIsCampaignCapped($campaignId, $cap, $sessionCap = 0, $block
  *                            to a viewer in a session.
  * @return boolean True if the zone is capped, false otherwise.
  */
-function _limitationsIsZoneCapped($zoneId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsZoneCapped($zoneId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
     // We set $showCappedNoCookie to false to keep zone capping behaviour the same as
     // in previous versions of OpenX, ie, if a zone is capped, don't show the ad to a

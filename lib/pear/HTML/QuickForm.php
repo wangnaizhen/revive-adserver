@@ -366,7 +366,7 @@ class HTML_QuickForm extends HTML_Common
     function registerRule($ruleName, $type, $data1, $data2 = null)
     {
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
         $registry->registerRule($ruleName, $type, $data1, $data2);
     } // end func registerRule
 
@@ -1287,7 +1287,7 @@ class HTML_QuickForm extends HTML_Common
     * @param    array   $b  array which will be merged into first one
     * @return   array   merged array
     */
-    function arrayMerge($a, $b)
+    public static function arrayMerge($a, $b)
     {
         foreach ($b as $k => $v) {
             if (is_array($v)) {
@@ -1317,7 +1317,7 @@ class HTML_QuickForm extends HTML_Common
      * @access    public
      * @return    boolean
      */
-    function isTypeRegistered($type)
+    public static function isTypeRegistered($type)
     {
         return isset($GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][strtolower($type)]);
     } // end func isTypeRegistered
@@ -1332,7 +1332,7 @@ class HTML_QuickForm extends HTML_Common
      * @access    public
      * @return    array
      */
-    function getRegisteredTypes()
+    public static function getRegisteredTypes()
     {
         return array_keys($GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES']);
     } // end func getRegisteredTypes
@@ -1371,7 +1371,7 @@ class HTML_QuickForm extends HTML_Common
             } while ($parent = get_parent_class($parent));
         }
         if ($ruleName) {
-            $registry =& HTML_QuickForm_RuleRegistry::singleton();
+            $registry = HTML_QuickForm_RuleRegistry::singleton();
             $registry->registerRule($ruleName, null, $name);
         }
         return $ruleName;
@@ -1496,7 +1496,7 @@ class HTML_QuickForm extends HTML_Common
         }
 
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
 
         foreach ($this->_rules as $target => $rules) {
             $submitValue = $this->getSubmitValue($target);
@@ -1730,7 +1730,7 @@ class HTML_QuickForm extends HTML_Common
         }
 
         include_once('HTML/QuickForm/RuleRegistry.php');
-        $registry =& HTML_QuickForm_RuleRegistry::singleton();
+        $registry = HTML_QuickForm_RuleRegistry::singleton();
         $test = array();
         $js_escape = array(
             "\r"    => '\r',

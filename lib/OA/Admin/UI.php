@@ -290,7 +290,7 @@ class OA_Admin_UI
         header ("Content-Type: text/html".(isset($phpAds_CharSet) && $phpAds_CharSet != "" ? "; charset=".$phpAds_CharSet : ""));
         $this->oTpl->display();
         if (!defined('phpAds_installing')) {
-            OX_Admin_UI_Hooks::afterPageHeader($id);
+            OX_Admin_UI_Hooks::afterPageHeader($ID);
         }
     }
 
@@ -325,7 +325,7 @@ class OA_Admin_UI
 	    }
     }
 
-    function getID($ID)
+    public static function getID($ID)
     {
         $id = $ID;
 
@@ -351,7 +351,7 @@ class OA_Admin_UI
      * @return string A string with the parent page, it will be null if the page
      *                doesn't have a parent page.
      */
-    function getTopLevelPage($sectionId = null)
+    public static function getTopLevelPage($sectionId = null)
     {
         $sectionId = OA_Admin_UI::getID($sectionId);
         $oMenu = OA_Admin_Menu::singleton();
@@ -557,7 +557,7 @@ class OA_Admin_UI
         $this->oTpl->assign('strWarningMissingOpening', html_entity_decode($GLOBALS['strWarningMissingOpening']));
         $this->oTpl->assign('strWarningMissingClosing', html_entity_decode($GLOBALS['strWarningMissingClosing']));
         $this->oTpl->assign('strSubmitAnyway', html_entity_decode($GLOBALS['strSubmitAnyway']));
-		    $this->oTpl->assign('warningBeforeDelete', $GLOBALS['_MAX']['PREF']['ui_novice_user'] ? 'true' : 'false');
+        $this->oTpl->assign('warningBeforeDelete', empty($GLOBALS['_MAX']['PREF']['ui_novice_user']) ? 'false' : 'true');
     }
 
 

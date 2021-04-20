@@ -661,7 +661,7 @@ class OX_Admin_UI_Install_InstallController
         //reachable is fine, check if not secured
         if ($reachable) {
             $aMeta = $oWizard->getStepMeta();
-            if ($aMeta['secured'] == true && !OA_Upgrade_Login::checkLogin()) {
+            if (!empty($aMeta['secured']) && !OA_Upgrade_Login::checkLogin()) {
                 $this->redirect('login');
             }
 

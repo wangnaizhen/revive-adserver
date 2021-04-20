@@ -79,7 +79,7 @@ class Image_Graph_Fill_Array extends Image_Graph_Fill
      * @param Image_Graph_Fill $style The style to add
      * @param string $id The id or name of the style
      */
-    function &add(& $style, $id = '')
+    function add($style, $id = '')
     {
         if ($id == '') {
             $this->_fillStyles[] =& $style;

@@ -460,7 +460,7 @@ function MAX_commonIsAdActionBlockedBecauseInactive($adId)
         }
 
         // OA_ENTITY_STATUS_RUNNING == 0, but the constant is not set during delivery, so we use a shortcut:
-        return 0 !== $aAdInfo['status'] || 0 !== $aAdInfo['campaign_status'];
+        return $aAdInfo['status'] > 0 || $aAdInfo['campaign_status'] > 0;
     }
 
     return false;
