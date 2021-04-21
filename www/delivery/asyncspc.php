@@ -2707,7 +2707,7 @@ $aAdInfo = MAX_cacheGetAd($adId);
 if (!$aAdInfo) {
 return false;
 }
-return 0 !== $aAdInfo['status'] || 0 !== $aAdInfo['campaign_status'];
+return $aAdInfo['status'] > 0 || $aAdInfo['campaign_status'] > 0;
 }
 return false;
 }
@@ -3260,15 +3260,15 @@ $blockZone = isset($aCapping['block_zone']) ? $aCapping['block_zone'] : null;
 $showCappedNoCookie = !empty($aCapping['show_capped_no_cookie_zone']);
 return (_limitationsIsZoneCapped($zoneId, $capZone, $sessionCapZone, $blockZone, $showCappedNoCookie));
 }
-function _limitationsIsAdCapped($adId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsAdCapped($adId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
 return _limitationsIsCapped('Ad', $adId, $cap, $sessionCap, $block, $showCappedNoCookie);
 }
-function _limitationsIsCampaignCapped($campaignId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsCampaignCapped($campaignId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
 return _limitationsIsCapped('Campaign', $campaignId, $cap, $sessionCap, $block, $showCappedNoCookie);
 }
-function _limitationsIsZoneCapped($zoneId, $cap, $sessionCap = 0, $block, $showCappedNoCookie)
+function _limitationsIsZoneCapped($zoneId, $cap, $sessionCap, $block, $showCappedNoCookie)
 {
 return _limitationsIsCapped('Zone', $zoneId, $cap, $sessionCap, $block, $showCappedNoCookie);
 }
