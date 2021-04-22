@@ -181,6 +181,12 @@ class Test_DeliveryCommon extends UnitTestCase
 	 */
 	function test_MAX_commonRegisterGlobalsArray()
 	{
+	    if (PHP_VERSION_ID >= 80100) {
+	        // Test cannot run on 8.1+
+            // Fatal error: $GLOBALS can only be modified using the $GLOBALS[$name] = $value syntax
+	        return;
+        }
+
 	    $tmpGlobals = $GLOBALS;
 	    $_GET['max_test_get']      = '0';
 	    $_POST['max_test_get']     = '1';
