@@ -27,7 +27,11 @@ if(isset($GLOBALS['_MAX']['FILES'][$file])) {
 $GLOBALS['_MAX']['FILES'][$file] = true;
 
 function OA_Dal_Delivery_isValidResult($result) {
-    return is_resource($result) || $result instanceof mysqli_result;
+    return OA_Dal_Delivery_isResourceOrObject($result);
+}
+
+function OA_Dal_Delivery_isResourceOrObject($resource) {
+    return is_resource($resource) || is_object($resource);
 }
 
 /**

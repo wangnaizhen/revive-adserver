@@ -108,7 +108,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         $error_code = MDB2_ERROR;
 
         $native_msg = '';
-        if (is_resource($error)) {
+        if (self::isValidResource($error)) {
             $native_msg = @pg_result_error($error);
         } elseif ($this->connection) {
             $native_msg = @pg_last_error($this->connection);
@@ -449,7 +449,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
      **/
     function connect()
     {
-        if (is_resource($this->connection)) {
+        if (self::isValidResource($this->connection)) {
             if (count(array_diff($this->connected_dsn, $this->dsn)) == 0
                 && $this->connected_database_name == $this->database_name
                 && ($this->opened_persistent == $this->options['persistent'])
@@ -539,7 +539,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
      */
     function disconnect($force = true)
     {
-        if (is_resource($this->connection)) {
+        if (self::isValidResource($this->connection)) {
             if ($this->in_transaction) {
                 $dsn = $this->dsn;
                 $database_name = $this->database_name;
@@ -616,7 +616,7 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
      * @return result or error object
      * @access protected
      */
-    function &_doQuery($query, $is_manip = false, $connection = null, $database_name = null)
+    function _doQuery($query, $is_manip = false, $connection = null, $database_name = null)
     {
         $this->last_query = $query;
         $result = $this->debug($query, 'query', array('is_manip' => $is_manip, 'when' => 'pre'));
@@ -1026,7 +1026,11 @@ class MDB2_Driver_pgsql extends MDB2_Driver_Common
         }
         return $result;
     }
-}
+
+    public static function isValidResource($resource)
+    {
+        return is_resource($resource) || is_object($resource);
+    }}
 
 /**
  * MDB2 PostGreSQL result driver
@@ -1197,7 +1201,7 @@ class MDB2_Result_pgsql extends MDB2_Result_Common
      */
     function free()
     {
-        if (is_resource($this->result) && $this->db->connection) {
+        if (self::isValidResource($this->result) && $this->db->connection) {
             $free = @pg_free_result($this->result);
             if ($free === false) {
                 return $this->db->customRaiseError(null, null, null,
@@ -1338,15 +1342,15 @@ class MDB2_Statement_pgsql extends MDB2_Statement_Common
                 }
                 $value = $this->values[$parameter];
                 $type = array_key_exists($parameter, $this->types) ? $this->types[$parameter] : null;
-                if (is_resource($value) || $type == 'clob' || $type == 'blob') {
-                    if (!is_resource($value) && preg_match('/^(\w+:\/\/)(.*)$/', $value, $match)) {
+                if (MDB2_Driver_pgsql::isValidResource($value) || $type == 'clob' || $type == 'blob') {
+                    if (!MDB2_Driver_pgsql::isValidResource($value) && preg_match('/^(\w+:\/\/)(.*)$/', $value, $match)) {
                         if ($match[1] == 'file://') {
                             $value = $match[2];
                         }
                         $value = @fopen($value, 'r');
                         $close = true;
                     }
-                    if (is_resource($value)) {
+                    if (MDB2_Driver_pgsql::isValidResource($value)) {
                         $data = '';
                         while (!@feof($value)) {
                             $data.= @fread($value, $this->db->options['lob_buffer_length']);
