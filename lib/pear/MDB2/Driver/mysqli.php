@@ -417,6 +417,8 @@ class MDB2_Driver_mysqli extends MDB2_Driver_Common
                 ? $this->dsn['client_flags'] : null;
         }
 
+        mysqli_report(MYSQLI_REPORT_OFF);
+
         if ($this->options['ssl']) {
             $init = @mysqli_init();
             @mysqli_ssl_set(
