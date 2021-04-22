@@ -200,7 +200,7 @@ class Test_DeliveryCommon extends UnitTestCase
         $this->assertTrue($GLOBALS['max_test_post'], 'GLOBALS precedence error');
 
         // Use eval as the fallowing fails during parse on PHP 8.1+
-        eval('$GLOBALS = $tmpGlobals');
+        eval('$GLOBALS = $tmpGlobals;');
     }
 
 	/**
