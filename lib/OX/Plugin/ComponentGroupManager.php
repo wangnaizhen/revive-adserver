@@ -1945,7 +1945,7 @@ class OX_Plugin_ComponentGroupManager
     /**
      * add a section to a menu object
      *
-     * @param object of type OA_Admin_Menu $oMenu
+     * @param OA_Admin_Menu $oMenu
      * @param array $aMenu
      * @param array $aCheckers
      * @return boolean
