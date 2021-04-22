@@ -1201,7 +1201,7 @@ class MDB2_Result_pgsql extends MDB2_Result_Common
      */
     function free()
     {
-        if (self::isValidResource($this->result) && $this->db->connection) {
+        if (MDB2_Driver_pgsql::isValidResource($this->result) && $this->db->connection) {
             $free = @pg_free_result($this->result);
             if ($free === false) {
                 return $this->db->customRaiseError(null, null, null,
