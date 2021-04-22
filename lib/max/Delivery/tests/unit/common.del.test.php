@@ -179,26 +179,29 @@ class Test_DeliveryCommon extends UnitTestCase
 	 * $_POST values take precedence over $_GET values
 	 *
 	 */
-	function test_MAX_commonRegisterGlobalsArray()
-	{
-	    if (PHP_VERSION_ID >= 80100) {
-	        // Test cannot run on 8.1+
+    function test_MAX_commonRegisterGlobalsArray()
+    {
+        if (PHP_VERSION_ID >= 80100) {
+            // Skip on PHP 8.1+
             // Fatal error: $GLOBALS can only be modified using the $GLOBALS[$name] = $value syntax
-	        return;
+            return;
         }
 
-	    $tmpGlobals = $GLOBALS;
-	    $_GET['max_test_get']      = '0';
-	    $_POST['max_test_get']     = '1';
-	    $_GET['max_test_post']     = '0';
-	    $_POST['max_test_post']    = '1';
-		MAX_commonRegisterGlobalsArray(array('max_test_get', 'max_test_post'));
-		$this->assertTrue(array_key_exists('max_test_get', $GLOBALS),'max_test_get exists');
-		$this->assertTrue(array_key_exists('max_test_post', $GLOBALS),'max_test_post exists');
-		$this->assertTrue($GLOBALS['max_test_get'],'GLOBALS precedence error');
-		$this->assertTrue($GLOBALS['max_test_post'],'GLOBALS precedence error');
-		$GLOBALS = $tmpGlobals;
-	}
+        $tmpGlobals = $GLOBALS;
+
+        $_GET['max_test_get'] = '0';
+        $_POST['max_test_get'] = '1';
+        $_GET['max_test_post'] = '0';
+        $_POST['max_test_post'] = '1';
+        MAX_commonRegisterGlobalsArray(array('max_test_get', 'max_test_post'));
+        $this->assertTrue(array_key_exists('max_test_get', $GLOBALS), 'max_test_get exists');
+        $this->assertTrue(array_key_exists('max_test_post', $GLOBALS), 'max_test_post exists');
+        $this->assertTrue($GLOBALS['max_test_get'], 'GLOBALS precedence error');
+        $this->assertTrue($GLOBALS['max_test_post'], 'GLOBALS precedence error');
+
+        // Use eval as the fallowing fails during parse on PHP 8.1+
+        eval('$GLOBALS = $tmpGlobals');
+    }
 
 	/**
 	 * Test1: return urldecoded/decrypted string
