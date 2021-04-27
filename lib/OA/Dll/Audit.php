@@ -20,6 +20,7 @@ require_once 'Date.php';
 require_once MAX_PATH . '/lib/OA/Dll.php';
 require_once MAX_PATH . '/lib/max/Dal/DataObjects/Audit.php';
 require_once MAX_PATH . '/lib/max/language/Loader.php';
+require_once MAX_PATH . '/lib/max/other/lib-userlog.inc.php';
 Language_Loader::load('default');
 Language_Loader::load('userlog');
 
